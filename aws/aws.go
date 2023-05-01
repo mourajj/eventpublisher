@@ -11,7 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-func createSession() (*session.Session, error) {
+func CreateSession() (*session.Session, error) {
 	//Create a new AWS session
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(constants.AWS_REGION_STRING),
@@ -23,7 +23,7 @@ func createSession() (*session.Session, error) {
 	return sess, err
 }
 
-func uploadFileToS3(awsSession *session.Session, filename, bucket string) {
+func UploadFileToS3(awsSession *session.Session, filename, bucket string) {
 
 	//Creating a s3 client
 	service := s3.New(awsSession)

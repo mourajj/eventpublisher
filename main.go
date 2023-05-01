@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
+
 	for {
 		time.Sleep(3 * time.Second)
 		fmt.Println("Running on docker")
 	}
-
 }

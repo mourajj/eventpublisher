@@ -47,6 +47,5 @@ func UploadFileToS3(awsSession *session.Session, filename, bucket string) {
 		os.Exit(1)
 	}
 
-	fmt.Printf("File %s uploaded to S3 bucket %s", filename, bucket)
-
+	log.Printf("File %s uploaded to S3 bucket %s", filename, bucket)
 }

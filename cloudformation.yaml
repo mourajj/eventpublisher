@@ -1,22 +1,65 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
+  S3InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - Ref: S3InstanceProfileRole
+      InstanceProfileName: S3InstanceProfile
+
+  S3Policy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: S3Policy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: s3:*
+            Resource: '*'
+      Roles:
+        - Ref: S3InstanceProfileRole
+
+  S3InstanceProfileRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: S3InstanceProfileRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+        
   EC2Instance:
     Type: 'AWS::EC2::Instance'
     Properties:
-      ImageId: 'ami-0668aa31594136bd1' # Amazon Linux LTS
+      ImageId: 'ami-0c5cdf1548242305d' # Amazon Linux LTS
       InstanceType: 't2.micro'
+      IamInstanceProfile: !Ref S3InstanceProfile
       SecurityGroupIds:
         - !Ref InstanceSecurityGroup
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
           # Install Docker and start the service
-          yum update -y
-          amazon-linux-extras install -y docker
-          service docker start
+          sudo yum update -y
+          sudo amazon-linux-extras install -y docker
+          sudo service docker start
+          sudo yum install -y git
+          cd
+          git clone https://github.com/mourajj/eventpublisher.git
+          cd eventpublisher
+          sudo docker build --tag 'eventPublisher'
+          
       Tags:
         - Key: 'Name'
-          Value: 'MyDockerInstance'
+          Value: 'InstanceForEvents'
+
   InstanceSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:

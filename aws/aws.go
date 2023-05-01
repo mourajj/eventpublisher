@@ -29,7 +29,7 @@ func UploadFileToS3(awsSession *session.Session, filename, bucket string) {
 	service := s3.New(awsSession)
 
 	//Opening the file to upload
-	file, err := os.Open("../events/FILENAME.txt")
+	file, err := os.Open("../events/" + filename)
 	if err != nil {
 		fmt.Println("Failed to open file: ", err)
 		os.Exit(1)

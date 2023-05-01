@@ -2,6 +2,7 @@ package main
 
 import (
 	"eventpublisher/aws"
+	"eventpublisher/constants"
 	"log"
 	"time"
 )
@@ -15,6 +16,6 @@ func main() {
 
 	for {
 		time.Sleep(10 * time.Second)
-		aws.UploadFileToS3(session, "testfile.txt", "jm-events-bucket")
+		aws.UploadFileToS3(session, "testfile.txt", constants.EVENT_BUCKET)
 	}
 }

@@ -54,7 +54,8 @@ Resources:
           cd
           git clone https://github.com/mourajj/eventpublisher.git
           cd eventpublisher
-          sudo docker build --tag 'eventPublisher'
+          sudo make build
+          sudo make run
           
       Tags:
         - Key: 'Name'

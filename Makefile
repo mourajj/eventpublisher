@@ -3,7 +3,7 @@ IMAGE_NAME=eventpublisherimage
 IMAGE_VERSION=latest
 
 # Define the Go application source code directory
-APP_SRC_DIR=src/eventpublisher-app
+APP_SRC_DIR=src/eventpublisher
 
 # Define the Docker container name
 CONTAINER_NAME=event-publisher

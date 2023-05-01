@@ -9,14 +9,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 	"github.com/golang/mock/gomock"
 	"github.com/xitongsys/parquet-go-source/s3/mocks"
 )
-
-type mockS3Client struct {
-	s3iface.S3API
-}
 
 func TestSessionCreation(t *testing.T) {
 
